@@ -1,1 +1,1 @@
-from BaseConnector import BaseConnector
+from .BaseConnector import BaseConnector

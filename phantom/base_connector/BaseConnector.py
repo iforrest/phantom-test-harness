@@ -50,6 +50,7 @@ class BaseConnector(object):
         self.message = ''
         self.progress_message = ''
         self.state = None
+        self.status = None
         self.action_results = []
         self.pp = pprint.PrettyPrinter(indent=4)
         self.action_identifier = ''
@@ -79,7 +80,7 @@ class BaseConnector(object):
         return self.config
 
     def get_container_id(self):
-        return self.debug_config['container_details'].get(container_id, 'None specified in config file')
+        return self.container_id
 
     def get_container_info(self, container_id=None):
         if not container_id:
@@ -101,7 +102,8 @@ class BaseConnector(object):
     def get_state(self):
         return self.state
 
-    def save_state(self):
+    def save_state(self, state=None):
+        self.state = (state or self.state)
         with open(self.state_file_location, 'w+') as state_file:
             state_file.write(json.dumps(self.state))
         self.logger.info('save_state() - State: {}'.format(self.pp.pformat(self.state)))
@@ -137,22 +139,22 @@ class BaseConnector(object):
         self.logger.debug('BaseConnector.debug_print - Message: {}; Object (next line):\n{}'.format(message, (self.pp.pformat(dump_obj) if dump_obj else '')))
         return
 
-    def set_status(self, state, message=None, error=None):
-        self.state = state
+    def set_status(self, status, message=None, error=None):
+        self.status = status
         self.message = message
-        self.logger.info('BaseConnector.set_status - State: {}; Message: {}; Exception: {}'.format(state, message, str(error)))
-        return
+        self.logger.info('BaseConnector.set_status - State: {}; Message: {}; Exception: {}'.format(status, message, str(error)))
+        return status
 
     def append_to_message(self, message):
         self.message += message
         self.logger.info('BaseConnector.append_to_message - Message: {}'.format(message))
         return
 
-    def set_status_save_progress(self, state, message):
-        self.state = state
+    def set_status_save_progress(self, status, message):
+        self.status = status
         self.progress_message = message
-        self.logger.info('BaseConnector.set_status_save_progress - State: {}, Message: {}'.format(state, message))
-        return
+        self.logger.info('BaseConnector.set_status_save_progress - Status: {}, Message: {}'.format(status, message))
+        return self.status
 
     def send_progress(self, message):
         self.progress_message = message

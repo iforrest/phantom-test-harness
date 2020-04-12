@@ -1,1 +1,1 @@
-from ActionResult import ActionResult
+from .ActionResult import ActionResult
