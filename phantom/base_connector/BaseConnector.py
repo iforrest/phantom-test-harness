@@ -46,6 +46,9 @@ class BaseConnector(object):
         # polling settings
         self.poll_now = False
 
+        # baseurl
+        self.base_url = 'https://127.0.0.1'
+
         # internal trackers
         self.message = ''
         self.progress_message = ''
@@ -78,6 +81,9 @@ class BaseConnector(object):
 
     def get_config(self):
         return self.config
+
+    def get_phantom_base_url(self):
+        return self.base_url
 
     def get_container_id(self):
         return self.container_id
@@ -185,3 +191,10 @@ class BaseConnector(object):
     
     def get_app_id(self):
         return self.app_id
+
+    def get_asset_id(self):
+        return self.asset_id
+        
+    def set_validator(type=None, validation_function=None):
+        # TODO: Make this do something. For now, it does nothing
+        return None

@@ -10,7 +10,7 @@ class Vault():
         return
 
     @classmethod
-    def add_attachment(file_location, container_id, file_name=None, metadata=None):
+    def add_attachment(clas, file_location, container_id, file_name=None, metadata=None):
         sha1_hash = None
         with open(file_location, 'r') as vault_file:
             vault_data = vault_file.read()
@@ -26,7 +26,7 @@ class Vault():
         }
 
     @classmethod
-    def create_attachment(file_contents, container_id, file_name=None, metadata=None):
+    def create_attachment(cls, file_contents, container_id, file_name=None, metadata=None):
         vault_data = file_contents
         sha1_data = hashlib.sha1(vault_data)
         sha1_hash = sha1_data.hexdigest()
@@ -40,14 +40,14 @@ class Vault():
         }
 
     @classmethod
-    def get_vault_tmp_dir():
+    def get_vault_tmp_dir(cls):
         return '/Users/iforrest/Documents/Dev/vault_tmp'
 
     @classmethod
-    def get_file_path(vault_id):
+    def get_file_path(cls, vault_id):
         return Vault.VAULT_PATHS.get(vault_id)
 
     # TODO: Implement this
     @classmethod
-    def get_file_info(vault_id=None, file_name=None, container_id=None):
+    def get_file_info(cls, vault_id=None, file_name=None, container_id=None):
         return {}
