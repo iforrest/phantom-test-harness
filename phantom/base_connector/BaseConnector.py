@@ -195,6 +195,6 @@ class BaseConnector(object):
     def get_asset_id(self):
         return self.asset_id
         
-    def set_validator(type=None, validation_function=None):
+    def set_validator(self, type=None, validation_function=None):
         # TODO: Make this do something. For now, it does nothing
         return None
