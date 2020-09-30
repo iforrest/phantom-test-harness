@@ -91,7 +91,7 @@ class BaseConnector(object):
     def get_container_info(self, container_id=None):
         if not container_id:
             container_id = self.container_id
-        return self.container_info[container_id]
+        return True, self.container_info[container_id], '200'
 
     def get_product_installation_id(self):
         return self.product_install_id
@@ -100,10 +100,10 @@ class BaseConnector(object):
         return self.product_version
 
     def load_state(self):
-        with open(self.state_file_location, 'w+') as state_file:
+        with open(self.state_file_location, 'r+') as state_file:
             self.state = json.loads(state_file.read() or '{}')
         self.logger.info('load_state() - State: {}'.format(self.pp.pformat(self.state)))
-        return
+        return self.state
 
     def get_state(self):
         return self.state
